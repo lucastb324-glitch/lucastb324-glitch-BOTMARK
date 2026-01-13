@@ -5,30 +5,41 @@ import re
 import json
 import time
 
-# ===============================
-# VARIÁVEIS DE AMBIENTE (RENDER)
-# ===============================
-CLI_PATH = os.getenv("CLI_PATH")
-TOKEN = os.getenv("DISCORD_TOKEN")
-CHANNEL_ID = os.getenv("CHANNEL_ID")
-LOG_PATH = os.getenv("LOG_PATH", "./logs/loja.log")
-JSON_PATH = os.getenv("JSON_PATH", "./loja_itens.json")
-INTERVALO = int(os.getenv("INTERVALO", 60))
+# Caminhos
+CLI_PATH = r"C:\Users\PC-NOVO\Desktop\PROJETO\DiscordChatExporter.Cli.win-x64\DiscordChatExporter.Cli.exe"
 
-# Validações
-if not all([CLI_PATH, TOKEN, CHANNEL_ID]):
-    raise RuntimeError("❌ Variáveis de ambiente obrigatórias não definidas!")
+if not os.path.exists(CLI_PATH):
+    print("ERRO: DiscordChatExporter.Cli.exe não encontrado!")
+    input("Pressione Enter para fechar...")
+    exit()
+
+# Config
+config_path = os.path.join(os.path.dirname(__file__), "config.txt")
+config = {}
+with open(config_path, "r", encoding="utf-8") as f:
+    for line in f:
+        if "=" in line and not line.strip().startswith("#"):
+            key, value = line.strip().split("=", 1)
+            config[key] = value
+
+TOKEN = config["TOKEN"].strip()
+CHANNEL_ID = config["CHANNEL_ID"].strip()
+LOG_PATH = config["LOG_PATH"].strip()
+JSON_PATH = r"C:\Users\PC-NOVO\Desktop\PROJETO\loja_itens.json"
 
 os.makedirs(os.path.dirname(LOG_PATH), exist_ok=True)
 TEMP_FILE = os.path.join(os.path.dirname(LOG_PATH), "temp_novas.txt")
 
-print("Bot de Loja DMW - Auto Atualização ATIVADA")
+# Intervalo de atualização em segundos (5 minutos = 300, 10 minutos = 600)
+INTERVALO = 60# Mude aqui pra quanto quiser (ex: 180 = 3 minutos)
+
+print("Bot de Loja DMW - Auto Atualizacao ATIVADA")
 print(f"Atualizando a cada {INTERVALO // 60} minutos")
-print("Ctrl + C para parar\n")
+print("Pressione Ctrl + C para parar\n")
 
 while True:
     try:
-        # Data base
+        # Data de busca
         if os.path.exists(LOG_PATH) and os.path.getsize(LOG_PATH) > 0:
             ultima_mod = datetime.fromtimestamp(os.path.getmtime(LOG_PATH))
             after_date = (ultima_mod - timedelta(minutes=10)).strftime("%Y-%m-%d %H:%M:%S")
@@ -45,57 +56,112 @@ while True:
             "--after", after_date
         ]
 
-        print(f"[{datetime.now().strftime('%H:%M:%S')}] A buscar mensagens...")
-        subprocess.run(comando, capture_output=True, text=True, check=True)
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] Buscando novas mensagens da loja...")
 
+        resultado = subprocess.run(comando, capture_output=True, text=True, check=True)
+
+        novas_mensagens = ""
         if os.path.exists(TEMP_FILE) and os.path.getsize(TEMP_FILE) > 0:
             with open(TEMP_FILE, "r", encoding="utf-8") as f:
-                novas = f.read()
+                novas_mensagens = f.read()
 
+            # Atualiza log completo
             antigo = ""
             if os.path.exists(LOG_PATH):
                 with open(LOG_PATH, "r", encoding="utf-8") as f:
                     antigo = f.read().rstrip("\n") + "\n"
 
             with open(LOG_PATH, "w", encoding="utf-8") as f:
-                f.write(antigo + novas)
+                f.write(antigo + novas_mensagens)
 
-            print(f"✅ {len(novas.splitlines())} linhas adicionadas")
+            print(f"✅ +{len(novas_mensagens.splitlines())} linhas novas adicionadas ao log")
             os.remove(TEMP_FILE)
         else:
-            print("ℹ️ Nenhuma mensagem nova")
+            print("ℹ️  Nenhuma mensagem nova.")
 
-        # === GERA JSON DA LOJA ===
-        with open(LOG_PATH, "r", encoding="utf-8") as f:
-            log = f.read()
+        # === EXTRA: Gera loja_itens.json limpo ===
+        if os.path.exists(LOG_PATH):
+            with open(LOG_PATH, "r", encoding="utf-8") as f:
+                log_completo = f.read()
 
-        def extrair_itens(texto):
-            itens = []
-            padrao = r"```.*?\n(.*?)```"
-            for bloco in re.findall(padrao, texto, re.DOTALL):
-                for linha in bloco.split("\n"):
-                    if linha.startswith("|") and linha.count("|") >= 3:
-                        p = [x.strip() for x in linha.split("|")[1:-1]]
-                        if len(p) >= 2 and p[1].replace(",", "").isdigit():
-                            itens.append({
-                                "nome": p[0],
-                                "preco": f"{p[1]} Coin",
-                                "quantidade": p[2] if len(p) > 2 else "N/A"
-                            })
-            return itens
+            def extrair_itens_tabela(texto_completo):
+                itens = []
+                
+                # Pega todos os blocos de código markdown
+                blocos = re.findall(r'```(.*?)```', texto_completo, re.DOTALL | re.IGNORECASE)
+                
+                for bloco in blocos:
+                    linhas = [linha.strip() for linha in bloco.split('\n') if linha.strip()]
+                    
+                    # Variáveis para capturar nome da loja (opcional, mas útil)
+                    shop_name = "Loja Desconhecida"
+                    for linha in linhas[:10]:  # procura nas primeiras linhas
+                        if linha.lower().startswith("shop name:"):
+                            shop_name = linha.split(":", 1)[1].strip()
+                            break
+                    
+                    # Procura o início da tabela (flexível)
+                    in_table = False
+                    for linha in linhas:
+                        if not in_table:
+                            if "item" in linha.lower() and "cost" in linha.lower() and "|" in linha:
+                                in_table = True
+                            continue
+                        
+                        # Linha de item válida
+                        if linha.startswith('|') and linha.count('|') >= 4:  # pelo menos Item | Cost | Quantity
+                            partes = [p.strip() for p in linha.split('|')[1:]]  # ignora o primeiro e último |
+                            
+                            if len(partes) < 3:
+                                continue
+                                
+                            nome = partes[0]
+                            preco_str = partes[1].replace(',', '').replace('.', '')  # limpa tudo
+                            quant_str = partes[2].replace(',', '').replace('.', '') if len(partes) > 2 else "N/A"
+                            
+                            # Validação simples: preço deve ser numérico após limpeza
+                            if nome and preco_str.isdigit():
+                                itens.append({
+                                    "nome": nome,
+                                    "preco": f"{int(preco_str):,} Coin",  # formata com vírgula
+                                    "quantidade": quant_str if quant_str.isdigit() else "N/A",
+                                    "loja": shop_name  # ← agora incluímos o nome da loja!
+                                })
+                
+                # Remove duplicatas exatas (nome + preço)
+                itens_unicos = []
+                vistos = set()
+                for item in itens:
+                    chave = (item["nome"], item["preco"])
+                    if chave not in vistos:
+                        vistos.add(chave)
+                        itens_unicos.append(item)
+                
+                return itens_unicos
 
-        itens = extrair_itens(log)
+            itens_extraidos = extrair_itens_tabela(log_completo)
 
-        unicos = {}
-        for i in itens:
-            unicos[f"{i['nome']}|{i['preco']}"] = i
+            # Remove duplicatas
+            itens_unicos = []
+            vistos = set()
+            for item in itens_extraidos:
+                chave = f"{item['nome']}|{item['preco']}"
+                if chave not in vistos:
+                    vistos.add(chave)
+                    itens_unicos.append(item)
 
-        with open(JSON_PATH, "w", encoding="utf-8") as f:
-            json.dump(list(unicos.values()), f, ensure_ascii=False, indent=2)
+            with open(JSON_PATH, "w", encoding="utf-8") as f:
+                json.dump(itens_unicos, f, ensure_ascii=False, indent=2)
 
-        print(f"🛒 Loja atualizada ({len(unicos)} itens)\n")
+            print(f"🛒 Loja atualizada: {len(itens_unicos)} itens únicos salvos em loja_itens.json\n")
+        else:
+            print("Log vazio, aguardando primeira atualização...\n")
 
+    except subprocess.CalledProcessError as e:
+        print(f"Erro ao baixar mensagens: {e.stderr.strip()}")
     except Exception as e:
-        print(f"❌ Erro: {e}")
+        print(f"Erro inesperado: {e}")
 
+    # Espera até a próxima execução
+    print(f"Aguardando {INTERVALO // 60} minutos para próxima atualização...\n")
     time.sleep(INTERVALO)
