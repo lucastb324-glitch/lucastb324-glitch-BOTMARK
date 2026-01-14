@@ -1,215 +1,136 @@
 ==============================================================
 Guild: Digital Masters World
 Channel: Information Board / shops
-After: 13/01/2026 21:39
+After: 13/01/2026 22:41
 ==============================================================
 
-[13/01/2026 21:40] Donny
-```Shop Name: CH 1 CULUMON FREE
-Owner: Banco5
+[13/01/2026 22:43] Donny
+```Shop Name: genm shop
+Owner: genm
+Map: Dats Center (0)
+
+| Item                | Cost  | Quantity | 
+|---------------------|-------|----------|
+| Yin and Yang Spirit | 5,000 | 3,630    | 
+```
+
+
+[13/01/2026 22:43] Donny
+```Shop Name: Nanicoo Shop
+Owner: Nanicoo
+Map: Dats Center (0)
+
+| Item                        | Cost       | Quantity | 
+|-----------------------------|------------|----------|
+| Etemon Seal                 | 28,000     | 411      | 
+| Essence of Vikaralamon      | 90,000     | 64       | 
+| Crest of Friendship         | 280,000    | 13       | 
+| The Hand  of Healing [High] | 11,000,000 | 1        | 
+| Incandescent Flame          | 145,000    | 34       | 
+```
+
+
+[13/01/2026 22:44] Donny
+```Shop Name: DRAC Shop
+Owner: DRAC
 Map: Dats Center (1)
 
-| Item                    | Cost    | Quantity | 
-|-------------------------|---------|----------|
-| Fruit of Homeostasis    | 5,000   | 20,000   | 
-| Megidramon Seal         | 94,000  | 725      | 
-| Mark of Digital Hazard  | 280,000 | 502      | 
-| [Reborn] - Digiclone[S] | 299,999 | 92       | 
-| [Reborn] - Digiclone[A] | 299,999 | 99       | 
+| Item                                                   | Cost        | Quantity | 
+|--------------------------------------------------------|-------------|----------|
+| Yggdrasil Core                                         | 1,999,000   | 3        | 
+| Sealed [Royal : X-Knight's Bracelet] [5 Stats]         | 9,999,000   | 4        | 
+| Sealed Fanglongmon's Ultimate Ancient Ring [Lv.10]     | 389,000,000 | 1        | 
+| Sealed Fanglongmon's Ultimate Ancient Necklace [Lv.10] | 394,000,000 | 1        | 
+| The Guardian  of Light Lv.4                            | 49,999,000  | 1        | 
 ```
 
 
-[13/01/2026 21:40] Donny
-```Shop Name: STUFF
-Owner: cForkz
-Map: Dats Center (7)
+[13/01/2026 22:44] Donny
+```Shop Name: 7Keys Shop
+Owner: 7Keys
+Map: Dats Center (10)
 
-| Item                            | Cost      | Quantity | 
-|---------------------------------|-----------|----------|
-| Jack Frost of Water Crystal     | 395,000   | 10       | 
-| Flawless Crystal of Trace       | 335,000   | 3        | 
-| Skill DigiCode (Jogress X) Lv15 | 3,900,000 | 1        | 
-| LordKnightmon X Seal            | 480,000   | 29       | 
-| Dukemon X Seal                  | 480,000   | 31       | 
+| Item                              | Cost  | Quantity | 
+|-----------------------------------|-------|----------|
+| Allomon Seal                      | 1,800 | 9,795    | 
+| X-Antibody Factor Exchange Ticket | 1,700 | 6,934    | 
+| Yin and Yang Spirit               | 5,900 | 3,831    | 
+| Warp Energy                       | 300   | 8,473    | 
+| Dorumon Seal                      | 2,900 | 3,716    | 
 ```
 
 
-[13/01/2026 21:40] Donny
-```Shop Name: Hazard11
-Owner: Hazard_
-Map: Dats Center (2)
-
-| Item                                                | Cost        | Quantity | 
-|-----------------------------------------------------|-------------|----------|
-| Sparrowmon's Shoes [30D] Box                        | 19,000,000  | 1        | 
-| <SSS> X-Antibody Factor: Gaioumon                   | 67,000,000  | 1        | 
-| <SSS+> X-Antibody Factor: Death-X-mon (Awaken) Beta | 850,000,000 | 1        | 
-```
-
-
-[13/01/2026 21:43] Donny
-```Shop Name: AlexChepar Shop
-Owner: AlexChepar
-Map: Dats Center (3)
-
-| Item                               | Cost      | Quantity | 
-|------------------------------------|-----------|----------|
-| Forest Essence                     | 36,000    | 798      | 
-| Essence of Vikaralamon             | 100,000   | 170      | 
-| Yggdrasil's Records                | 4,900,000 | 3        | 
-| Skill DigiCode (Burst Mode) Lv15   | 3,590,000 | 2        | 
-| Skill DigiCode (Burst Mode X) Lv15 | 4,500,000 | 3        | 
-```
-
-
-[13/01/2026 21:43] Donny
-```Shop Name: Neuvillette
-Owner: Neuvillette
-Map: Dats Center (1)
-
-| Item                        | Cost      | Quantity | 
-|-----------------------------|-----------|----------|
-| Nightmare Essence           | 11,000    | 7,854    | 
-| Spiral Essence              | 35,000    | 505      | 
-| Yggdrasil's Records         | 7,000,000 | 4        | 
-| High Rank Monster Card Lv.2 | 15,000    | 1,158    | 
-| Flawless Crystal of Trace   | 450,000   | 9        | 
-```
-
-
-[13/01/2026 21:43] Donny
-```Shop Name: laniffy Shop
-Owner: laniffy
-Map: Dats Center (9)
+[13/01/2026 22:46] Donny
+```Shop Name: Momandai Shop
+Owner: Momandai
+Map: Dats Center (4)
 
 | Item                           | Cost      | Quantity | 
 |--------------------------------|-----------|----------|
-| The Tree  of Life [High]       | 8,999,999 | 1        | 
-| The Guardian  of Light Lv.3    | 7,000,000 | 1        | 
-| The Emperor  of Fire [Highest] | 7,500,000 | 1        | 
-| Marine Dragon Core             | 1,449,000 | 10       | 
-| Mark of Digital Hazard         | 278,000   | 10       | 
+| Metallic Beast Core            | 2,900,000 | 5        | 
+| Cruelty Clown Core             | 6,700,000 | 1        | 
+| Yggdrasil Core                 | 1,800,000 | 3        | 
+| Yggdrasil's Records            | 4,800,000 | 1        | 
+| Amazing Renewal Increase Stone | 94,000    | 1,793    | 
 ```
 
 
-[13/01/2026 21:43] Donny
-```Shop Name: CORE HOH TOL ARIS
-Owner: JokeShado
-Map: Dats Center (3)
+[13/01/2026 22:46] Donny
+```Shop Name: AldwinRain Shop
+Owner: AldwinRain
+Map: Dats Center (10)
 
-| Item                           | Cost       | Quantity | 
-|--------------------------------|------------|----------|
-| Metallic Beast Core            | 3,099,400  | 25       | 
-| Amazing Renewal Increase Stone | 130,000    | 266      | 
-| The Hand  of Healing [Highest] | 35,000,000 | 1        | 
-| The Tree  of Life [Highest]    | 39,900,000 | 1        | 
-| The Hand  of Healing Lv.4      | 26,887,000 | 1        | 
+| Item         | Cost  | Quantity | 
+|--------------|-------|----------|
+| Kiwimon Seal | 3,488 | 11,688   | 
 ```
 
 
-[13/01/2026 21:44] Donny
-```Shop Name: OFFER
-Owner: IAkaza
-Map: Dats Center (6)
-
-| Item                            | Cost       | Quantity | 
-|---------------------------------|------------|----------|
-| Fanronkou                       | 1,100,000  | 10       | 
-| Yggdrasil's Records             | 5,999,999  | 2        | 
-| Thunder God's Lightning Crystal | 139,999    | 142      | 
-| Ring of Sealed Zhuqiaomon       | 2,999,999  | 1        | 
-| Qinglongmon's Sealed Earring    | 11,999,999 | 1        | 
-```
-
-
-[13/01/2026 21:44] Donny
-```Shop Name: LucasPK Shop
-Owner: LucasPK
-Map: Dats Center (2)
-
-| Item                                  | Cost      | Quantity | 
-|---------------------------------------|-----------|----------|
-| Amazing Renewal Increase Stone        | 94,999    | 200      | 
-| Highest Skill Memory Capsule [Attack] | 2,800,000 | 1        | 
-| Skill Memory Cube Lv 4 [Defense]      | 3,000,000 | 2        | 
-| JT [HP] ChipSet R16                   | 4,000,000 | 1        | 
-| Iron Will [High]                      | 3,000,000 | 2        | 
-```
-
-
-[13/01/2026 21:45] Donny
-```Shop Name: pol
-Owner: Zyrus
-Map: Dats Center (8)
-
-| Item                      | Cost      | Quantity | 
-|---------------------------|-----------|----------|
-| Dukemon X Seal            | 477,999   | 10       | 
-| LordKnightmon X Seal      | 477,999   | 6        | 
-| Gankoomon X Seal          | 149,999   | 10       | 
-| Jesmon X Seal             | 349,999   | 6        | 
-| The Guardian  of Ice Lv.4 | 2,999,999 | 1        | 
-```
-
-
-[13/01/2026 21:46] Donny
-```Shop Name: merci ch9
-Owner: filippoita
-Map: Dats Center (9)
-
-| Item                      | Cost      | Quantity | 
-|---------------------------|-----------|----------|
-| Satan Shoes Box [30D]     | 2,400,000 | 2        | 
-| Candlemon Seal            | 980       | 2,681    | 
-| Sinduramon Seal           | 2,200     | 1,114    | 
-| [HP] Attribute Rank D Lv2 | 4,000,000 | 1        | 
-| Togemon Seal              | 3,000     | 800      | 
-```
-
-
-[13/01/2026 21:47] Donny
-```Shop Name: Romulin Shop
-Owner: Romulin
-Map: Dats Center (2)
+[13/01/2026 22:50] Donny
+```Shop Name: AldwinRain Shop
+Owner: AldwinRain
+Map: Dats Center (10)
 
 | Item                          | Cost      | Quantity | 
 |-------------------------------|-----------|----------|
-| Fruit of Homeostasis          | 4,400     | 5,450    | 
-| Skill DigiCode (Jogress) Lv15 | 9,000,000 | 3        | 
-| Crest of Friendship           | 290,000   | 76       | 
-| [Reborn] Lotus Fruit          | 150,000   | 70       | 
+| Metallic Beast Core           | 2,988,888 | 45       | 
+| Marine Dragon Core            | 1,399,999 | 10       | 
+| Fanronkou                     | 1,089,999 | 85       | 
+| Earring of Sealed Zhuqiaomon  | 3,788,888 | 4        | 
+| Necklace of Sealed Zhuqiaomon | 4,288,888 | 1        | 
 ```
 
 
-[13/01/2026 21:48] Donny
-```Shop Name: Raposo Shop
-Owner: Raposo
-Map: Dats Center (0)
+[13/01/2026 22:51] Donny
+```Shop Name: Obscurum Shop
+Owner: Obscurum
+Map: Dats Center (2)
 
-| Item                        | Cost      | Quantity | 
-|-----------------------------|-----------|----------|
-| Garudamon Seal              | 10,000    | 40       | 
-| FanBeemon Seal              | 1,000     | 2,319    | 
-| Gabumon Seal                | 18,000    | 840      | 
-| Complete Virus              | 35,000    | 156      | 
-| The Ruler  of Darkness Lv.3 | 8,500,000 | 1        | 
+| Item                               | Cost       | Quantity | 
+|------------------------------------|------------|----------|
+| Flybeemon Seal                     | 9,998      | 13,584   | 
+| Tamer Skill [Ultimate Vigor] [30D] | 50,000,000 | 2        | 
+| Venomous Energy                    | 3,498      | 4,993    | 
+| Energy of Steel [Hard]             | 2,420      | 7,334    | 
+| Spiral Essence                     | 39,998     | 7,272    | 
 ```
 
 
-[13/01/2026 21:48] Donny
-```Shop Name: Hazard11
-Owner: Hazard_
-Map: Dats Center (4)
+[13/01/2026 22:52] Donny
+```Shop Name: OmegaCh8
+Owner: Pint
+Map: Dats Center (8)
 
-| Item                                                | Cost        | Quantity | 
-|-----------------------------------------------------|-------------|----------|
-| <SSS+> X-Antibody Factor: Death-X-mon (Awaken) Beta | 850,000,000 | 1        | 
-| <SSS> X-Antibody Factor: Gaioumon                   | 67,999,999  | 1        | 
-| Sparrowmon's Shoes [30D] Box                        | 19,000,000  | 1        | 
-| Tamer Skill [Ultimate Berserker] [30D]              | 35,000,000  | 1        | 
+| Item                                 | Cost      | Quantity | 
+|--------------------------------------|-----------|----------|
+| Yin and Yang Spirit                  | 6,000     | 1,619    | 
+| Spiral Essence                       | 30,000    | 345      | 
+| Nightmare Essence                    | 9,000     | 261      | 
+| Qinglongmon's Sealed Radiant Earring | 1,000,000 | 1        | 
+| Sealed Xuanwumon's Shiny Ring        | 333,000   | 2        | 
 ```
 
 
 ==============================================================
-Exported 14 message(s)
+Exported 9 message(s)
 ==============================================================

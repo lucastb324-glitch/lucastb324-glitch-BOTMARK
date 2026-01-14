@@ -130,7 +130,7 @@ async def disparar_alertas(itens_novos):
     
     if not channel:
         print(f"ERRO: Canal de alertas ({ALERT_CHANNEL_ID}) não encontrado!")
-        # Pode continuar mesmo sem canal, para tentar mandar no PV depois
+        # Continua tentando mandar no PV se quiser
 
     alertas_por_usuario = {}
 
@@ -138,7 +138,6 @@ async def disparar_alertas(itens_novos):
         nome_item = item_novo.get("nome", "").strip()
         nome_item_lower = nome_item.lower()
         
-        # Pegamos o nome da loja (agora deve existir no JSON!)
         nome_loja = item_novo.get("loja", "Loja Desconhecida")
         
         preco_str = item_novo.get("preco", "0 Coin").replace(" Coin", "").replace(",", "").replace(".", "")
@@ -147,11 +146,18 @@ async def disparar_alertas(itens_novos):
         except:
             preco_item = 999999999
 
-        # Aqui criamos a linha no formato desejado
-        linha_item = f'{nome_item} /shopfinder {nome_loja}'
+        # Comando que o usuário deve copiar
+        comando_copiavel = f"{nome_item} /shopfinder {nome_loja}"
 
-        # Opcional: se quiser mostrar também o preço no alerta
-        # linha_item = f'"{nome_item}" • **{formatar_preco(item_novo.get("preco", "0"))}**   /shopfinder "{nome_loja}"'
+        # Linha formatada completa (preço e quant fora do bloco)
+        linha_formatada = (
+            f"**{nome_item}**\n"
+            f"💰 **{formatar_preco(item_novo.get('preco', '0'))}**\n"
+            f"📦 Quant: **{item_novo.get('quantidade', 'N/A')}**\n"
+            f"🏪 {nome_loja}\n"
+            f"```bash\n{comando_copiavel}\n```"
+            f"──────────────────────────────\n"
+        )
 
         for user_id, user_alertas in alertas.items():
             for alerta in user_alertas:
@@ -163,44 +169,48 @@ async def disparar_alertas(itens_novos):
                     if alerta.get("preco_max") is None or preco_item <= alerta["preco_max"]:
                         if user_id not in alertas_por_usuario:
                             alertas_por_usuario[user_id] = []
-                        alertas_por_usuario[user_id].append(linha_item)
-                        break  # evita duplicar o mesmo item para o mesmo usuário
+                        alertas_por_usuario[user_id].append(linha_formatada)
+                        break  # evita duplicar o mesmo item
 
     # Envia para cada usuário que teve match
-    for user_id, itens in alertas_por_usuario.items():
+    for user_id, linhas in alertas_por_usuario.items():
         mention = f"<@{user_id}>"
-        itens_unicos = list(set(itens))[:10]  # remove duplicatas e limita
+        linhas_unicas = list(set(linhas))[:10]  # remove duplicatas e limita
+
+        if not linhas_unicas:
+            continue
 
         try:
             embed = discord.Embed(
                 title="🛒 ALERTA DE ITEM ENCONTRADO!",
-                description=f"{mention}\n\nItens do seu alerta apareceram na loja:\n\n" +
-                            "\n".join(itens_unicos),
+                description=f"{mention}\n\nItens do seu alerta apareceram na loja!\n\n" +
+                            "".join(linhas_unicas),  # junta todas as linhas formatadas
                 color=0x00ff88
             )
-            embed.set_footer(text="Use o comando /shopfinder para localizar • Loja atualizada")
+            embed.set_footer(
+                text="Toque longo no bloco abaixo para copiar o comando • Use no terminal do jogo"
+            )
             
-            # Envia no canal
+            # Envia no canal público
             await channel.send(embed=embed)
-            print(f"Alerta enviado no canal para {user}")
+            print(f"Alerta enviado no canal para <@{user_id}>")
 
         except Exception as e:
             print(f"Erro ao enviar no canal para {user_id}: {e}")
 
-        # Opcional: envio no privado (como você pediu antes)
+        # Tentativa de envio no privado (opcional)
         try:
             user = bot.get_user(int(user_id))
             if user:
                 embed_pv = embed.copy()
                 embed_pv.description = f"Olá {mention}! Encontrei item(s) do seu alerta:\n\n" + \
-                                    "\n".join(itens_unicos)
+                                      "".join(linhas_unicas)
                 await user.send(embed=embed_pv)
                 print(f"✅ Alerta enviado no PV para <@{user_id}>")
             else:
                 print(f"Não enviei PV para {user_id} (usuário não encontrado)")
-        except:
-            print(f"Não foi possível enviar PV para {user_id} (DMs fechadas ou usuário offline)")
-
+        except Exception as e:
+            print(f"Não foi possível enviar PV para {user_id}: {e}")
 
 # ======================== COMANDOS ========================
 
