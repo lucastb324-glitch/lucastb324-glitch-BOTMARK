@@ -12,6 +12,7 @@ from fuzzywuzzy import fuzz
 
 intents = discord.Intents.default()
 intents.message_content = True
+intents.members = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
@@ -147,7 +148,7 @@ async def disparar_alertas(itens_novos):
             preco_item = 999999999
 
         # Aqui criamos a linha no formato desejado
-        linha_item = f'"{nome_item}" /shopfinder "{nome_loja}"'
+        linha_item = f'{nome_item} /shopfinder {nome_loja}'
 
         # Opcional: se quiser mostrar também o preço no alerta
         # linha_item = f'"{nome_item}" • **{formatar_preco(item_novo.get("preco", "0"))}**   /shopfinder "{nome_loja}"'
@@ -167,12 +168,7 @@ async def disparar_alertas(itens_novos):
 
     # Envia para cada usuário que teve match
     for user_id, itens in alertas_por_usuario.items():
-        user = bot.get_user(int(user_id))
-        if not user:
-            print(f"Usuário {user_id} não encontrado")
-            continue
-
-        mention = user.mention
+        mention = f"<@{user_id}>"
         itens_unicos = list(set(itens))[:10]  # remove duplicatas e limita
 
         try:
@@ -193,13 +189,17 @@ async def disparar_alertas(itens_novos):
 
         # Opcional: envio no privado (como você pediu antes)
         try:
-            embed_pv = embed.copy()
-            embed_pv.description = f"Olá {user.mention}! Encontrei item(s) do seu alerta:\n\n" + \
-                                  "\n".join(itens_unicos)
-            await user.send(embed=embed_pv)
-            print(f"✅ Alerta enviado no PV para {user}")
+            user = bot.get_user(int(user_id))
+            if user:
+                embed_pv = embed.copy()
+                embed_pv.description = f"Olá {mention}! Encontrei item(s) do seu alerta:\n\n" + \
+                                    "\n".join(itens_unicos)
+                await user.send(embed=embed_pv)
+                print(f"✅ Alerta enviado no PV para <@{user_id}>")
+            else:
+                print(f"Não enviei PV para {user_id} (usuário não encontrado)")
         except:
-            print(f"Não foi possível enviar PV para {user} (DMs fechadas?)")
+            print(f"Não foi possível enviar PV para {user_id} (DMs fechadas ou usuário offline)")
 
 
 # ======================== COMANDOS ========================
